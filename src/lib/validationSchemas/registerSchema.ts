@@ -52,6 +52,7 @@ const formSchema = z
       .regex(/[^ ]/, 'Confirm Password cannot be empty'),
     acceptTermsAndConditions: z.boolean().default(false),
     consentToContact: z.boolean().default(false),
+    showFullName: z.boolean().default(false),
   })
   .refine(
     (data) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { getMatches } from '@/app/api/matches/getMatches';
 import { Match } from '@/types/match.types';
+import { getMatches } from '@/lib/data/getMatches';
 import MatchList from './MatchList';
 
 const GamesPage = async () => {

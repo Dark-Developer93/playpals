@@ -17,6 +17,7 @@ import { Input } from '@/components/ui/input';
 import formSchema from '@/lib/validationSchemas/changePasswordSchema';
 import { changePassword } from '@/app/actions/changePassword';
 import { useRouter } from 'next/navigation';
+import PasswordValidationsInfo from '@/app/(auth)/register/PasswordValidationInfo';
 import { toast } from '../ui/use-toast';
 import Icon from '../icon/Icon';
 
@@ -77,11 +78,13 @@ const ChangePasswordForm = ({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      placeholder="Enter your new password"
-                      {...field}
-                      type="password"
-                    />
+                    <PasswordValidationsInfo>
+                      <Input
+                        placeholder="Enter your new password"
+                        {...field}
+                        type="password"
+                      />
+                    </PasswordValidationsInfo>
                   </FormControl>
 
                   <FormMessage />

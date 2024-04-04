@@ -43,6 +43,7 @@ const links = [
 const Navbar = ({ onClose }: Props) => {
   const pathname = usePathname();
   const { status, data: session } = useSession();
+
   return (
     <nav
       className="fixed top-0 left-0 z-50 bg-black/[.4] w-full h-lvh animate-fade-appear"
@@ -52,16 +53,18 @@ const Navbar = ({ onClose }: Props) => {
         onClick={(e) => e.stopPropagation()}
         className="rounded-full bg-primary text-white absolute  -top-28 -right-28 w-[550px] h-[550px] animate-show-menu max-sm:-right-52"
       >
-        {session?.user && (
+        {status === 'authenticated' && (
           <div className="flex flex-col absolute top-56 left-48 gap-4">
-            <UserAvatar
-              variant="white"
-              firstName={session?.user.firstName}
-              lastName={session?.user.lastName}
-              username={session?.user.username}
-              showFullName={session?.user.showFullName}
-              image={session?.user.image}
-            />
+            <Link href={`/profile/${session?.user.id}`} onClick={onClose}>
+              <UserAvatar
+                variant="white"
+                firstName={session?.user.firstName}
+                lastName={session?.user.lastName}
+                username={session?.user.username}
+                showFullName={false}
+                image={session?.user.image || undefined}
+              />
+            </Link>
             <div className="text-xl font-semibold text-center">
               <p>Total Points: {session?.user.totalPoints}</p>
               <p>Rank: {session?.user.rank}</p>

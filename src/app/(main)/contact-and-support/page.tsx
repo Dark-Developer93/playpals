@@ -38,6 +38,7 @@ const ContactAndSupportPage = () => {
             <Link
               href="/privacy-and-policy"
               className="text-primary hover:text-primary/75"
+              target="_blank"
             >
               Privacy and Policy
             </Link>{' '}

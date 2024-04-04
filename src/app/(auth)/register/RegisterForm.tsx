@@ -65,6 +65,7 @@ const RegisterForm = (props: Props) => {
       confirmPassword: '',
       acceptTermsAndConditions: false,
       consentToContact: false,
+      showFullName: false,
     },
   });
 
@@ -120,6 +121,27 @@ const RegisterForm = (props: Props) => {
             )}
           />
         ))}
+
+        <FormField
+          control={registerForm.control}
+          name="showFullName"
+          render={({ field }) => (
+            <FormItem>
+              <div className="flex flex-row-reverse justify-end items-center gap-3">
+                <FormLabel className="cursor-pointer">
+                  Show my Full name publicly.
+                </FormLabel>
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+              </div>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <FormField
           control={registerForm.control}

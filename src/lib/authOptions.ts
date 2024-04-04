@@ -67,43 +67,40 @@ export const authOptions: NextAuthOptions = {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { password, ...userProfile } = prismaUser;
 
-        // Conditionally include firstName and lastName based on showFullName
-        userProfile.firstName = prismaUser.showFullName
-          ? prismaUser.firstName
-          : '';
-        userProfile.lastName = prismaUser.showFullName
-          ? prismaUser.lastName
-          : '';
-
         return { ...userProfile, maxAge };
       },
     }),
   ],
   callbacks: {
-    jwt: async ({ token, user }) => {
+    jwt: async ({ token, user, session, trigger }) => {
       if (user) {
-        const extendedUser = user as ExtendedUser;
-        const { maxAge } = extendedUser;
         return {
           ...token,
-          user: extendedUser,
-          maxAge,
+          user: user as ExtendedUser,
         };
       }
-      const maxAge = token.maxAge as number;
+      const { maxAge } = token.user as ExtendedUser;
       const newToken = {
         ...token,
         exp: Math.floor(Date.now() / MILLISECONDS_TO_SECONDS) + maxAge,
       };
 
+      if (trigger === 'update') {
+        return {
+          ...newToken,
+          ...session,
+        };
+      }
+
       return newToken;
     },
     session: async ({ token, session }) => {
+      const { maxAge } = token.user as ExtendedUser;
       const updatedSession = {
         ...session,
-        user: token.user as ExtendedUser,
+        user: token.user,
         expires: new Date(
-          Date.now() + (token.maxAge as number) * MILLISECONDS_TO_SECONDS,
+          Date.now() + maxAge * MILLISECONDS_TO_SECONDS,
         ).toISOString(),
       };
 

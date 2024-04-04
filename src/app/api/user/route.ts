@@ -5,28 +5,10 @@ import { hash } from 'bcrypt';
 import prisma from '@/lib/prisma';
 import userSchema from '@/lib/validationSchemas/registerSchema';
 
-async function getAllUsers() {
-  try {
-    const users = await prisma.user.findMany({
-      orderBy: {
-        totalPoints: 'desc',
-      },
-    });
-    return NextResponse.json(users);
-  } catch (error) {
-    return NextResponse.json(
-      { message: `Internal Server Error fetching users: ${error}` },
-      { status: 500 },
-    );
-  }
-}
-
-export { getAllUsers as GET };
-
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { username, firstName, lastName, email, password } =
+    const { username, firstName, lastName, email, password, showFullName } =
       userSchema.parse(body);
 
     const isEmailExist = await prisma.user.findUnique({
@@ -57,6 +39,7 @@ export async function POST(req: Request) {
         lastName,
         username,
         password: hashedPassword,
+        showFullName,
       },
     });
 

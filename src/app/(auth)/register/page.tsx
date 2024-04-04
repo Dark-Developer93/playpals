@@ -24,6 +24,7 @@ const RegisterPage = () => {
       acceptTermsAndConditions,
       confirmPassword,
       consentToContact,
+      showFullName,
     } = values;
 
     try {
@@ -38,6 +39,7 @@ const RegisterPage = () => {
           acceptTermsAndConditions,
           confirmPassword,
           consentToContact,
+          showFullName,
         }),
       });
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import TeamCard from '@/components/team/TeamCard';
-import { Match } from '../../types/match.types';
+import { Match } from '@/types/match.types';
 
 const MILISECONDSTOSECONDS = 1000;
 

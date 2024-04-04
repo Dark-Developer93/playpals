@@ -48,7 +48,7 @@ export const ResetPassword = ({
 
         <a
           style={link as React.CSSProperties}
-          href={`http://localhost:3000/reset-password?token=${resetPasswordToken}`}
+          href={`${process.env.NEXTAUTH_URL}/reset-password?token=${resetPasswordToken}`}
         >
           Reset password
         </a>
