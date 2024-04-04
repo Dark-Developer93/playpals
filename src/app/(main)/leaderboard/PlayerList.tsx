@@ -1,7 +1,7 @@
 import UserAvatar from '@/components/user-avatar/UserAvatar';
 import { cn } from '@/lib/utils';
 import { getCurrentUser } from '@/lib/session';
-import { getAllUsers } from '../../api/user/route';
+import { GET as getAllUsers } from '../../api/user/route';
 
 const PlayerList = async () => {
   const { users } = await getAllUsers();

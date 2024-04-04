@@ -5,7 +5,7 @@ import { hash } from 'bcrypt';
 import prisma from '@/lib/prisma';
 import userSchema from '@/lib/validationSchemas/registerSchema';
 
-export async function getAllUsers() {
+async function getAllUsers() {
   try {
     const users = await prisma.user.findMany({
       orderBy: {
@@ -19,6 +19,8 @@ export async function getAllUsers() {
     throw new Error(`Internal Server Error fetching users: ${error}`);
   }
 }
+
+export { getAllUsers as GET };
 
 export async function POST(req: Request) {
   try {
