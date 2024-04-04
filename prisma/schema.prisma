@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "sqlserver"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model User {
+  id                 String               @id @unique @default(cuid())
+  firstName          String               @db.VarChar(255)
+  lastName           String               @db.VarChar(255)
+  email              String               @unique
+  username           String               @unique
+  createdAt          DateTime             @default(now())
+  predictionPoints   Int                  @default(0)
+  viuPoints          Int                  @default(0)
+  totalPoints        Int                  @default(0)
+  rank               Int                  @default(0)
+  image              String?
+  password           String               @db.VarChar(1000)
+  showFullName       Boolean              @default(false)
+  ResetPasswordToken ResetPasswordToken[]
+  Prediction         Prediction[]
+  leaderboardEntry   LeaderboardEntry[]
+}
+
+model ResetPasswordToken {
+  id          String   @id @unique @default(cuid())
+  token       String   @unique
+  tokenExpiry DateTime
+  used        Boolean  @default(false)
+  userId      String
+  User        User     @relation(fields: [userId], references: [id])
+}
+
+model Prediction {
+  id        String @id @unique @default(cuid())
+  userId    String
+  matchId   Int
+  homeScore Int
+  awayScore Int
+  User      User   @relation(fields: [userId], references: [id])
+}
+
+model LeaderboardEntry {
+  id          String @id @unique @default(cuid())
+  userId      String
+  username    String
+  totalPoints Int
+  user        User   @relation(fields: [userId], references: [id])
+}

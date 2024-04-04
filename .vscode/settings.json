@@ -1,0 +1,9 @@
+{
+  "WillLuke.nextjs.hasPrompted": true,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ]
+}
