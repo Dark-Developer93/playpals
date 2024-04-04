@@ -4,7 +4,8 @@ import { getCurrentUser } from '@/lib/session';
 import { GET as getAllUsers } from '../../api/user/route';
 
 const PlayerList = async () => {
-  const users = await getAllUsers();
+  const data = await getAllUsers();
+  const users = await data.json();
   const currentUser = await getCurrentUser();
 
   return (

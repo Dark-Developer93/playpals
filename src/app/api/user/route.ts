@@ -12,9 +12,12 @@ async function getAllUsers() {
         totalPoints: 'desc',
       },
     });
-    return [...users];
+    return NextResponse.json(users);
   } catch (error) {
-    throw new Error(`Internal Server Error fetching users: ${error}`);
+    return NextResponse.json(
+      { message: `Internal Server Error fetching users: ${error}` },
+      { status: 500 },
+    );
   }
 }
 
