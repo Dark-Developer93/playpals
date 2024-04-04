@@ -64,14 +64,8 @@ export const authOptions: NextAuthOptions = {
         sessionExpiry.setSeconds(
           sessionExpiry.getSeconds() + (rememberMe ? THIRTY_DAYS : ONE_DAY),
         );
-        const {
-          /* eslint-disable @typescript-eslint/no-unused-vars */
-          password,
-          resetPasswordToken,
-          resetPasswordTokenExpiry,
-          /* eslint-enable @typescript-eslint/no-unused-vars */
-          ...userProfile
-        } = prismaUser;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { password, ...userProfile } = prismaUser;
 
         // Conditionally include firstName and lastName based on showFullName
         userProfile.firstName = prismaUser.showFullName
