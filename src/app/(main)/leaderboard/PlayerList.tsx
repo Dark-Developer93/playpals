@@ -4,12 +4,12 @@ import { getCurrentUser } from '@/lib/session';
 import { getAllUsers } from '../../api/user/route';
 
 const PlayerList = async () => {
-  const users = await getAllUsers();
+  const { users } = await getAllUsers();
   const currentUser = await getCurrentUser();
 
   return (
     <ul className="md:space-y-2">
-      {users.map((user, index) => (
+      {users?.map((user, index) => (
         <li
           key={user.id}
           className={cn(

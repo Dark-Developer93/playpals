@@ -12,7 +12,9 @@ export async function getAllUsers() {
         totalPoints: 'desc',
       },
     });
-    return [...users];
+    return {
+      users,
+    };
   } catch (error) {
     throw new Error(`Internal Server Error fetching users: ${error}`);
   }
